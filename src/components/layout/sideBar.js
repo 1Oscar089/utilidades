@@ -1,20 +1,22 @@
-export function Sidebar(items = [], onSelect) {
-    const sidebar = document.createElement('aside');
+export function SideBar(items = []) {
+    const aside = document.createElement('aside');
+    aside.className = 'app-sidebar';
+
+    const nav = document.createElement('nav');
     const ul = document.createElement('ul');
 
-    items.forEach((item, index) => {
+    items.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = item;
-
-        li.addEventListener('click', () => {
-            if (onSelect) {
-                onSelect(index); // Envía la posición (0, 1 o 2) al hacer clic
-            }
-        });
-
+        // Asumimos que item puede ser un string o un objeto { texto, activo }
+        const isActive = typeof item === 'object' && item.activo;
+        
+        li.textContent = typeof item === 'object' ? item.texto : item;
+        if (isActive) li.classList.add('active');
+        
         ul.appendChild(li);
     });
 
-    sidebar.appendChild(ul);
-    return sidebar;
+    nav.appendChild(ul);
+    aside.appendChild(nav);
+    return aside;
 }

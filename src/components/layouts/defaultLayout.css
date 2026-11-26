@@ -1,52 +1,95 @@
-#app{
-    display: grid;
-    grid-template-columns: 10rem 1fr ;
-    grid-template-rows: 4rem 1fr 3rem;
-    grid-template-areas: 
-        "header     header"
-        "sidebar    content"
-        "footer     footer"
-    ;
+/* Variables para mantener consistencia */
+:root {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f9fafb;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --accent-color: #2563eb;
 }
-header{
-    grid-area: header;
-    display: flex;
-    align-items:center;
-    background-color: blue;
-    padding-left: 2rem;
-    color: white;
 
-    gap: 2rem;
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda la pantalla */
+    overflow: hidden; /* Oculta el scroll global */
 }
-header span{
-    font-size: 25px;
-    font-weight: bold;
-    cursor: pointer;
-}
-aside{
-    height: 100vh;
-    border-right: 1px solid blue;
-    padding-top: 2rem;
-}
-aside li{
+
+/* Header */
+.app-header {
+    height: 64px;
     display: flex;
     align-items: center;
-    padding-left: 0.3rem;
-    height: 1.5rem;
-    list-style: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-width: 1px 1px 1px 10px;
-    border-style: solid;
-    border-color: transparent;
-}
-aside li:hover{
-    border-width: 1px 1px 1px 10px;
-    border-style: solid;
-    border-color: blue;
-    padding-left: 0.6rem;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border-color);
 }
 
-main{
-    padding: 1rem;
+.app-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Cuerpo (Sidebar + Main) */
+.layout-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden; /* Evita que el sidebar empuje el scroll */
+    min-height: 0; /* Truco de Flexbox para permitir scroll interno */
+}
+
+/* Sidebar */
+.app-sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 24px 16px;
+}
+
+.app-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.app-sidebar li {
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.app-sidebar li:hover {
+    background-color: #f3f4f6;
+    color: var(--text-main);
+}
+
+.app-sidebar li.active {
+    background-color: #eff6ff;
+    color: var(--accent-color);
+}
+
+/* Content */
+.app-content {
+    flex: 1;
+    padding: 32px;
+    overflow-y: auto; /* El único que scrollea */
+}
+
+/* Footer */
+.app-footer {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }

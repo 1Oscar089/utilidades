@@ -1,5 +1,12 @@
-export function Content(vista){
-    const contenido = document.createElement('main');
-    contenido.append(vista);
-    return contenido;
+export function Content(viewElement) {
+    const main = document.createElement('main');
+    main.className = 'app-content';
+
+    if (viewElement) {
+        main.appendChild(viewElement);
+    } else {
+        main.textContent = "No hay vista seleccionada.";
+    }
+
+    return main;
 }

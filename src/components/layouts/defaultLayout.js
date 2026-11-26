@@ -1,31 +1,26 @@
-import "./defaultLayout.css";
-import { Header } from "../layout/header.js";
-import { Sidebar } from "../layout/sideBar.js";
-import { Content } from "../layout/content.js";
-import { Inicio } from "../../views/inicio/inicio.js";
-import { Botones } from "../../views/botones/botones.js";
-import { Accesibilidad } from "../../views/accesibilidad/accesibilidad.js";
+// Sube un nivel desde layouts/ a components/, y entra a layout/
+import { Header } from '../layout/header.js';
+import { SideBar } from '../layout/sideBar.js';
+import { Content } from '../layout/content.js';
+import { Footer } from '../layout/footer.js';
 
-const vistas = [Inicio, Accesibilidad, Botones];
-const items = ["Inicio", "Accesibilidad", "Botones"];
+export function DefaultLayout({ title, sidebarItems, view, footerText }) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'layout-wrapper';
 
-export function defaultLayout() {
-    const defaultFragment = document.createDocumentFragment();
-    
-    // 1. Crea el contenedor principal con la vista inicial (Inicio)
-    const contenedorMain = Content(vistas[0]());
+    const header = Header(title);
 
-    // 2. Función que actualiza el <main> al hacer clic en un <li>
-    function cambiarVista(index) {
-        contenedorMain.innerHTML = ""; // Limpia lo que había antes
-        contenedorMain.append(vistas[index]()); // Inserta la nueva vista (ej. Accesibilidad())
-    }
+    const bodyContainer = document.createElement('div');
+    bodyContainer.className = 'layout-body';
 
-    defaultFragment.append(
-        Header('MIS COMPONENTES'),
-        Sidebar(items, cambiarVista), // Le pasas la función al Sidebar
-        contenedorMain
-    );
+    const sidebar = SideBar(sidebarItems);
+    const content = Content(view);
 
-    return defaultFragment;
+    bodyContainer.append(sidebar, content);
+
+    const footer = Footer(footerText);
+
+    wrapper.append(header, bodyContainer, footer);
+
+    return wrapper;
 }

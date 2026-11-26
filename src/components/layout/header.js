@@ -1,9 +1,10 @@
-export function Header(title = `Sin Titulo`){
+export function Header(title = "Sin título") {
     const header = document.createElement('header');
-    const tituloHeader = document.createElement('h1');
-    tituloHeader.textContent = title;
-    const hamburguesa = document.createElement('span');
-    hamburguesa.innerHTML = "&#9776;"
-    header.append(hamburguesa, tituloHeader);
+    header.className = 'app-header';
+
+    const h1 = document.createElement('h1');
+    h1.textContent = title;
+    
+    header.appendChild(h1);
     return header;
 }
